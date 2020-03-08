@@ -14,17 +14,17 @@ public class Main {
 
         String inputFilePath = args[0];
         String outputFilePath = "result_" + inputFilePath;
-        List<String> batchedLines;
+        List<String> batchLines;
 
         try (
                 BufferedReader inputBufferedReader = new BufferedReader(new FileReader(inputFilePath));
                 BufferedWriter outputBufferedWriter = new BufferedWriter(new FileWriter(outputFilePath))
         ) {
             while (true) {
-                batchedLines = readBatchLines(inputBufferedReader);
+                batchLines = readBatchLines(inputBufferedReader);
 
-                if (batchedLines.size() > 0) {
-                    writeBatchLines(outputBufferedWriter, reverseBatchLines(batchedLines));
+                if (batchLines.size() > 0) {
+                    writeBatchLines(outputBufferedWriter, reverseBatchLines(batchLines));
                 } else {
                     break;
                 }
