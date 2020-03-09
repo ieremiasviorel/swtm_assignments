@@ -16,6 +16,8 @@ public class Main {
         String outputFilePath = "result_" + inputFilePath;
         List<String> batchLines;
 
+        long startTime = System.nanoTime();
+
         try (
                 BufferedReader inputBufferedReader = new BufferedReader(new FileReader(inputFilePath));
                 BufferedWriter outputBufferedWriter = new BufferedWriter(new FileWriter(outputFilePath))
@@ -32,6 +34,10 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        long endTime = System.nanoTime();
+
+        System.out.println("Execution time: " + (endTime - startTime) / 1000000000.0f + "s");
     }
 
     static List<String> readBatchLines(BufferedReader inputBufferedReader) throws IOException {

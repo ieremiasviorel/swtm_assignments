@@ -11,6 +11,8 @@ const inputFilePath = process.argv[2];
 const outputFilePath = 'result_' + inputFilePath;
 const outputWriter = fs.createWriteStream(outputFilePath);
 
+console.time();
+
 const batchLines = {
 	linesBuffer: [],
 
@@ -31,6 +33,7 @@ const batchLines = {
 
 	noLinesLeft() {
 		this.linesBufferFullListener(this.linesBuffer);
+		console.timeEnd();
 	},
 	
 	registerLinesBufferFullListener: function(listener) {

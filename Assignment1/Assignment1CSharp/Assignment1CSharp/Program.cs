@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace Assignment1CSharp
@@ -17,6 +18,8 @@ namespace Assignment1CSharp
 
             string inputFilePath = args[0];
             string outputFilePath = "result_" + inputFilePath;
+
+            Stopwatch watch = Stopwatch.StartNew();
 
             StreamReader inputFile = new StreamReader(inputFilePath);
             StreamWriter outputFile = new StreamWriter(outputFilePath);
@@ -39,6 +42,10 @@ namespace Assignment1CSharp
 
             inputFile.Close();
             outputFile.Close();
+
+            watch.Stop();
+
+            Console.WriteLine("Execution time: " + watch.ElapsedMilliseconds / 1000.0f + "s");
         }
 
         static List<string> ReadBatchLines(StreamReader inputFile)

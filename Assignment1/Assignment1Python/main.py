@@ -1,5 +1,5 @@
 import sys
-
+import time
 
 def read_batch_lines(input_file):
 	batch_lines = []
@@ -32,6 +32,9 @@ if __name__ == "__main__":
 	output_file_path = 'result_' + input_file_path
 
 	batch_lines = []
+
+	start_time = time.time()
+
 	with open(input_file_path, 'r') as input_file, open(output_file_path, 'w') as output_file:
 		while True:
 			batch_lines = read_batch_lines(input_file)
@@ -41,3 +44,7 @@ if __name__ == "__main__":
 				write_batch_lines(output_file, batch_lines)
 			else:
 				break
+
+	end_time = time.time()
+
+	print('Execution time: %fs' % (end_time - start_time))

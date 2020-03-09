@@ -7,6 +7,8 @@ if ($argc != 2) {
 $input_file_name = $argv[1];
 $output_file_name = "result_" . $input_file_name;
 
+$start = microtime(true);
+
 $input_file = fopen($input_file_name, "r");
 $output_file = fopen($output_file_name, "w");
 
@@ -22,6 +24,10 @@ while(true)  {
 
 fclose($input_file);
 fclose($output_file);
+
+$end = microtime(true);
+
+echo "Execution time: " . ($end - $start) . "s";
 
 function readBatchLines($input_file) {
 	$batch_lines = [];
