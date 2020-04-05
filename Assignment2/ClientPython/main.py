@@ -7,9 +7,7 @@ from PyInquirer import prompt
 from cli.menu import get_start_question, get_event_selection_question, \
     get_event_operation_selection_question, extract_event_name, get_event_edit_form, get_event_name_form, \
     get_event_description_form, get_event_creation_form
-from model.calendar_event_dto import CalendarEventDTO
 
-Pyro4.config.SERIALIZERS_ACCEPTED = {'json', 'marshal', 'serpent', 'pickle'}
 Pyro4.config.SERIALIZER = 'pickle'
 
 
@@ -51,8 +49,7 @@ def handle_show_list_of_events(events):
 
 def handle_event_creation():
     answers = prompt(get_event_creation_form())
-    event = CalendarEventDTO(answers['name'], answers['description'], answers['scheduled_time'])
-    proxy.event_add(event)
+    proxy.event_add(answers['name'], answers['description'], answers['scheduled_time'])
     handle_menu_selection('List all events')
 
 
@@ -77,13 +74,12 @@ def handle_event_selection_answer(events, event_selection_answer):
 def handle_event_edit(event):
     original_event_name = event.name
     answers = prompt(get_event_edit_form(event))
-    updated_event = CalendarEventDTO(answers['name'], answers['description'], answers['scheduled_time'])
-    proxy.event_edit(original_event_name, updated_event)
+    proxy.event_edit(original_event_name, answers['name'], answers['description'], answers['scheduled_time'])
     handle_menu_selection('List all events')
 
 
 def handle_event_delete(event):
-    proxy.event_delete(event)
+    proxy.event_delete(event.name)
     handle_menu_selection('List all events')
 
 

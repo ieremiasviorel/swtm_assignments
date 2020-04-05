@@ -9,8 +9,8 @@ class CalendarEventService:
     def persist(self, calendar_event_dto):
         return CalendarEvent.persist(self.session_factory(), CalendarEventDTO.to_calendar_event(calendar_event_dto))
 
-    def delete(self, calendar_event_dto):
-        calendar_event = CalendarEvent.get_by_name(self.session_factory(), calendar_event_dto.name)
+    def delete(self, calendar_event_dto_name):
+        calendar_event = CalendarEvent.get_by_name(self.session_factory(), calendar_event_dto_name)
         return CalendarEvent.delete(self.session_factory(), calendar_event)
 
     def update(self, current_event_name, updated_calendar_event_dto):

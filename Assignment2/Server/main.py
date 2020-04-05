@@ -5,10 +5,10 @@ import Pyro4
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
+from model.calendar_event_dto import CalendarEventDTO
 from service.calendar_event_service import CalendarEventService
 
-Pyro4.config.SERIALIZERS_ACCEPTED = {'json', 'marshal', 'serpent', 'pickle'}
-Pyro4.config.SERIALIZER = 'pickle'
+Pyro4.config.SERIALIZERS_ACCEPTED.add('pickle')
 
 
 @Pyro4.expose
@@ -36,14 +36,16 @@ class ExecPyro4Serv(object):
     def events_list_by_description(self, description):
         return self.calendar_event_service.get_by_description_partial(description)
 
-    def event_add(self, event):
-        return self.calendar_event_service.persist(event)
+    def event_add(self, event_name, event_description, event_scheduled_time):
+        calendar_event_dto = CalendarEventDTO(event_name, event_description, event_scheduled_time)
+        return self.calendar_event_service.persist(calendar_event_dto)
 
-    def event_edit(self, original_event_name, updated_event):
-        return self.calendar_event_service.update(original_event_name, updated_event)
+    def event_edit(self, original_event_name, updated_event_name, updated_event_description, updated_event_scheduled_time):
+        updated_calendar_event_dto = CalendarEventDTO(updated_event_name, updated_event_description, updated_event_scheduled_time)
+        return self.calendar_event_service.update(original_event_name, updated_calendar_event_dto)
 
-    def event_delete(self, event):
-        return self.calendar_event_service.delete(event)
+    def event_delete(self, event_name):
+        return self.calendar_event_service.delete(event_name)
 
 
 def init_database():
