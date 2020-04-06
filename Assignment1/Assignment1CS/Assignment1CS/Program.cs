@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace Assignment1CSharp
+namespace Assignment1CS
 {
     class Program
     {
