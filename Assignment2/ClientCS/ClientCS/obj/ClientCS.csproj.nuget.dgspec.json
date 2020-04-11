@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\ClientCS.csproj": {}
+    "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS.csproj": {}
   },
   "projects": {
-    "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\ClientCS.csproj": {
+    "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\ClientCS.csproj",
+        "projectUniqueName": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS.csproj",
         "projectName": "ClientCS",
-        "projectPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\ClientCS.csproj",
+        "projectPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS.csproj",
         "packagesPath": "C:\\Users\\Ierem\\.nuget\\packages\\",
-        "outputPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\obj\\",
+        "outputPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ierem\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,6 +37,16 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "EasyConsole": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Razorvine.Pyrolite": {
+              "target": "Package",
+              "version": "[4.31.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

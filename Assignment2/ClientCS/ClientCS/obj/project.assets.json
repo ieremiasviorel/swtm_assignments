@@ -1,11 +1,113 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "EasyConsole/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net452/EasyConsole.dll": {}
+        },
+        "runtime": {
+          "lib/net452/EasyConsole.dll": {}
+        }
+      },
+      "Razorvine.Pyrolite/4.31.0": {
+        "type": "package",
+        "dependencies": {
+          "Razorvine.Serpent": "1.29.0",
+          "System.Memory": "4.5.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Razorvine.Pyrolite.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Razorvine.Pyrolite.dll": {}
+        }
+      },
+      "Razorvine.Serpent/1.29.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Razorvine.Serpent.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Razorvine.Serpent.dll": {}
+        }
+      },
+      "System.Memory/4.5.2": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "EasyConsole/1.1.0": {
+      "sha512": "fEBI56S+m8g3VXRFHYxf9a9VUmBAkT8WZXFpRVou7cDTWmAEaloSWyXPHG7tHfUt+wkBovc9GSzZohuYdpWcsQ==",
+      "type": "package",
+      "path": "easyconsole/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "easyconsole.1.1.0.nupkg.sha512",
+        "easyconsole.nuspec",
+        "lib/net452/EasyConsole.dll"
+      ]
+    },
+    "Razorvine.Pyrolite/4.31.0": {
+      "sha512": "OszPmh449rydpdHSGExOqRHYMr+h2vey4lYgxyvQZtzuB9T8pRGYU7Hg0loWJcOjRBMGXvYnNTxsIylpNBp6eA==",
+      "type": "package",
+      "path": "razorvine.pyrolite/4.31.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Razorvine.Pyrolite.dll",
+        "razorvine.pyrolite.4.31.0.nupkg.sha512",
+        "razorvine.pyrolite.nuspec"
+      ]
+    },
+    "Razorvine.Serpent/1.29.0": {
+      "sha512": "uux2fp2C1uiyLptmtsUab9bb0TNuJI1vhSOv7XlFBCD7gN9MaJjYiT+6SSpCVnuEZWl2ccjeaz187zivIpI6IQ==",
+      "type": "package",
+      "path": "razorvine.serpent/1.29.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Razorvine.Serpent.dll",
+        "razorvine.serpent.1.29.0.nupkg.sha512",
+        "razorvine.serpent.nuspec"
+      ]
+    },
+    "System.Memory/4.5.2": {
+      "sha512": "fvq1GNmUFwbKv+aLVYYdgu/+gc8Nu9oFujOxIjPrsf+meis9JBzTPDL6aP/eeGOz9yPj6rRLUbOjKMpsMEWpNg==",
+      "type": "package",
+      "path": "system.memory/4.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.2.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "EasyConsole >= 1.1.0",
+      "Razorvine.Pyrolite >= 4.31.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Ierem\\.nuget\\packages\\": {}
@@ -13,11 +115,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\ClientCS.csproj",
+      "projectUniqueName": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS.csproj",
       "projectName": "ClientCS",
-      "projectPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\ClientCS.csproj",
+      "projectPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS.csproj",
       "packagesPath": "C:\\Users\\Ierem\\.nuget\\packages\\",
-      "outputPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\ClientCS\\obj\\",
+      "outputPath": "D:\\IV\\Documente\\Master\\An 1\\Sem. II\\Servicii Web si Tehnologii Middleware\\Laboratories\\swtm_assignments\\Assignment2\\ClientCS\\ClientCS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ierem\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +145,16 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "dependencies": {
+          "EasyConsole": {
+            "target": "Package",
+            "version": "[1.1.0, )"
+          },
+          "Razorvine.Pyrolite": {
+            "target": "Package",
+            "version": "[4.31.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -61,5 +173,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EasyConsole 1.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EasyConsole",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

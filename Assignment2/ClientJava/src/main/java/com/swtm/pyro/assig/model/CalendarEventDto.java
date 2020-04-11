@@ -2,7 +2,6 @@ package com.swtm.pyro.assig.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +10,6 @@ public class CalendarEventDto implements Serializable {
     private String name;
     private String description;
     private LocalDateTime scheduled_time;
-
-    public CalendarEventDto() {
-    }
 
     public CalendarEventDto(String name, String description, LocalDateTime scheduled_time) {
         this.name = name;
