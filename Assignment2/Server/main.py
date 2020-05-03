@@ -30,8 +30,8 @@ class ExecPyro4Serv(object):
     def events_list(self):
         return self.calendar_event_service.get_all()
 
-    def event_find_by_name(self, name):
-        return self.calendar_event_service.get_by_name(name)
+    def events_list_by_name(self, name):
+        return self.calendar_event_service.get_by_name_partial(name)
 
     def events_list_by_description(self, description):
         return self.calendar_event_service.get_by_description_partial(description)
@@ -40,8 +40,10 @@ class ExecPyro4Serv(object):
         calendar_event_dto = CalendarEventDTO(event_name, event_description, event_scheduled_time)
         return self.calendar_event_service.persist(calendar_event_dto)
 
-    def event_edit(self, original_event_name, updated_event_name, updated_event_description, updated_event_scheduled_time):
-        updated_calendar_event_dto = CalendarEventDTO(updated_event_name, updated_event_description, updated_event_scheduled_time)
+    def event_edit(self, original_event_name, updated_event_name, updated_event_description,
+                   updated_event_scheduled_time):
+        updated_calendar_event_dto = CalendarEventDTO(updated_event_name, updated_event_description,
+                                                      updated_event_scheduled_time)
         return self.calendar_event_service.update(original_event_name, updated_calendar_event_dto)
 
     def event_delete(self, event_name):

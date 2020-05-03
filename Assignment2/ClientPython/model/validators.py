@@ -4,9 +4,19 @@ from PyInquirer import Validator, ValidationError
 
 class EventNameValidator(Validator):
     def validate(self, document):
-        ok = regex.match('^[a-zA-Z0-9-_ ]+$', document.text)
-        if not ok:
-            raise ValidationError(message='Please enter a valid name (no special characters)',
+        trimmed_text = document.text.strip()
+
+        if len(trimmed_text) == 0 or len(trimmed_text) > 100:
+            raise ValidationError(message='Please enter a valid name (at most 100 characters)',
+                                  cursor_position=len(document.text))
+
+
+class EventDescriptionValidator(Validator):
+    def validate(self, document):
+        trimmed_text = document.text.strip()
+
+        if len(trimmed_text) == 0 or len(trimmed_text) > 500:
+            raise ValidationError(message='Please enter a valid description (at most 500 characters)',
                                   cursor_position=len(document.text))
 
 

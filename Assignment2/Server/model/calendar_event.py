@@ -41,6 +41,15 @@ class CalendarEvent(Base):
         return event
 
     @staticmethod
+    def get_by_name_partial(session, event_name):
+        events = session.query(CalendarEvent) \
+            .filter(CalendarEvent.name.contains(event_name)) \
+            .order_by(CalendarEvent.scheduled_time.asc()) \
+            .all()
+        session.close()
+        return events
+
+    @staticmethod
     def get_by_description_partial(session, event_description):
         events = session.query(CalendarEvent) \
             .filter(CalendarEvent.description.contains(event_description)) \

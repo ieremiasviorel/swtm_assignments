@@ -1,4 +1,4 @@
-from model.validators import EventNameValidator, EventDateValidator
+from model.validators import EventNameValidator, EventDescriptionValidator, EventDateValidator
 
 MENU_OPTIONS = [
     'List all events',
@@ -47,7 +47,8 @@ EVENT_FORM = [
         'type': 'input',
         'message': 'Description',
         'name': 'description',
-        'default': ''
+        'default': '',
+        'validate': EventDescriptionValidator,
     },
     {
         'type': 'input',

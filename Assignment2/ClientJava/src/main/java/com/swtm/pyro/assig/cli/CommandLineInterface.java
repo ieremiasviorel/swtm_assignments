@@ -8,8 +8,6 @@ import org.beryx.textio.TextTerminal;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,18 +43,14 @@ public class CommandLineInterface {
                 break;
             }
             case SEARCH_EVENT_BY_NAME: {
-                String eventName = this.textInterface.newStringInputReader().withPattern("^[a-zA-Z0-9-_ ]+$").read("Name");
-                Map<String, String> eventStr = (Map<String, String>) proxy.call("event_find_by_name", eventName);
-                if (eventStr != null) {
-                    CalendarEventDto event = new CalendarEventDto(eventStr);
-                    this.showEventsList(Arrays.asList(event));
-                } else {
-                    this.showEventsList(new ArrayList<>());
-                }
+                String eventName = this.textInterface.newStringInputReader().withMinLength(1).withMaxLength(100).read("Name");
+                List<Map<String, String>> eventsStr = (List<Map<String, String>>) proxy.call("events_list_by_name", eventName);
+                List<CalendarEventDto> events = eventsStr.stream().map(CalendarEventDto::new).collect(Collectors.toList());
+                this.showEventsList(events);
                 break;
             }
             case SEARCH_EVENTS_BY_DESCRIPTION: {
-                String eventDescription = this.textInterface.newStringInputReader().read("Description");
+                String eventDescription = this.textInterface.newStringInputReader().withMinLength(1).withMaxLength(500).read("Description");
                 List<Map<String, String>> eventsStr = (List<Map<String, String>>) proxy.call("events_list_by_description", eventDescription);
                 List<CalendarEventDto> events = eventsStr.stream().map(CalendarEventDto::new).collect(Collectors.toList());
                 this.showEventsList(events);
@@ -109,10 +103,13 @@ public class CommandLineInterface {
             case EDIT: {
                 String updatedEventName = this.textInterface.newStringInputReader()
                         .withDefaultValue(event.getName())
-                        .withPattern("^[a-zA-Z0-9-_ ]+$")
+                        .withMinLength(1)
+                        .withMaxLength(100)
                         .read("Name");
                 String updatedEventDescription = this.textInterface.newStringInputReader()
                         .withDefaultValue(event.getDescription())
+                        .withMinLength(1)
+                        .withMaxLength(500)
                         .read("Description");
                 String updatedEventScheduledTime = this.textInterface.newStringInputReader()
                         .withDefaultValue(this.formatDateTimeForDisplay(event.getScheduled_time()))
@@ -136,8 +133,14 @@ public class CommandLineInterface {
     }
 
     private void handleEventCreation() throws IOException {
-        String eventName = this.textInterface.newStringInputReader().withPattern("^[a-zA-Z0-9-_ ]+$").read("Name");
-        String eventDescription = this.textInterface.newStringInputReader().read("Description");
+        String eventName = this.textInterface.newStringInputReader()
+                .withMinLength(1)
+                .withMaxLength(100)
+                .read("Name");
+        String eventDescription = this.textInterface.newStringInputReader()
+                .withMinLength(1)
+                .withMaxLength(500)
+                .read("Description");
         String eventScheduledTime = this.textInterface.newStringInputReader()
                 .withPattern("^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$")
                 .read("Date and time (YYYY-MM-ZZ HH:MM:SS)");

@@ -26,15 +26,13 @@ def handle_menu_selection(menu_selection_answer):
         handle_show_list_of_events(events)
     if menu_selection_answer == 'Search event by name':
         event_name_answer = handle_event_name_input()
-        searched_event = proxy.event_find_by_name(event_name_answer['name'])
-        if searched_event:
-            events = [searched_event]
-        else:
-            events = []
+        event_name = event_name_answer['name']
+        events = proxy.events_list_by_name(event_name)
         handle_show_list_of_events(events)
     if menu_selection_answer == 'Search events by description':
         event_description_answer = handle_event_description_input()
-        events = proxy.events_list_by_description(event_description_answer['description'])
+        event_description = event_description_answer['description']
+        events = proxy.events_list_by_description(event_description)
         handle_show_list_of_events(events)
     elif menu_selection_answer == 'Create event':
         handle_event_creation()

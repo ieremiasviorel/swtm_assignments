@@ -21,7 +21,7 @@ namespace ClientCS.cli
             Menu mainOptionsMenu = new Menu();
 
             mainOptionsMenu.Add(MenuOptions.LIST_ALL_EVENTS, HandleListAllEvents);
-            mainOptionsMenu.Add(MenuOptions.SEARCH_EVENT_BY_NAME, HandleSearchEventByName);
+            mainOptionsMenu.Add(MenuOptions.SEARCH_EVENT_BY_NAME, HandleListEventsByName);
             mainOptionsMenu.Add(MenuOptions.SEARCH_EVENTS_BY_DESCRIPTION, HandleListEventsByDescription);
             mainOptionsMenu.Add(MenuOptions.CREATE_EVENT, HandleCreateEvent);
             mainOptionsMenu.Add(MenuOptions.QUIT, () => Environment.Exit(0));
@@ -38,16 +38,13 @@ namespace ClientCS.cli
             HandleDisplayEventList(events);
         }
 
-        private void HandleSearchEventByName()
+        private void HandleListEventsByName()
         {
             string name = Input.ReadString("Name:");
 
-            object eventObject = proxy.call("event_find_by_name", name);
-            List<CalendarEventDto> events = new List<CalendarEventDto>();
-            if (eventObject != null)
-            {
-                events.Add(CalendarEventDto.CalendarEventDtoFromDict(eventObject));
-            }
+            List<object> eventsobjects = (List<object>)proxy.call("events_list_by_name", name);
+
+            List<CalendarEventDto> events = eventsobjects.ConvertAll(new Converter<object, CalendarEventDto>(CalendarEventDto.CalendarEventDtoFromDict));
 
             HandleDisplayEventList(events);
         }

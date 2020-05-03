@@ -21,8 +21,8 @@ class CalendarEventService:
     def get_all(self):
         return self.convert_to_dto(CalendarEvent.get_all(self.session_factory()))
 
-    def get_by_name(self, event_name):
-        return CalendarEventDTO.from_calendar_event(CalendarEvent.get_by_name(self.session_factory(), event_name))
+    def get_by_name_partial(self, event_name):
+        return self.convert_to_dto(CalendarEvent.get_by_name_partial(self.session_factory(), event_name))
 
     def get_by_description_partial(self, event_description):
         return self.convert_to_dto(CalendarEvent.get_by_description_partial(self.session_factory(), event_description))
@@ -34,5 +34,4 @@ class CalendarEventService:
         current_calendar_event.name = updated_calendar_event_dto.name
         current_calendar_event.description = updated_calendar_event_dto.description
         current_calendar_event.scheduled_time = updated_calendar_event_dto.scheduled_time
-
         return current_calendar_event

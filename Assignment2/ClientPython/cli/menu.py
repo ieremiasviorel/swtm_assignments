@@ -2,7 +2,7 @@ import copy
 
 from cli.options import MENU_SELECTION_QUESTION, EVENT_SELECTION_QUESTION, \
     EVENT_OPERATION_SELECTION_QUESTION, EVENT_FORM, SIMPLE_INPUT_FORM
-from model.validators import EventNameValidator
+from model.validators import EventNameValidator, EventDescriptionValidator
 
 
 def get_start_question():
@@ -39,7 +39,7 @@ def get_event_edit_form(event):
 def get_event_name_form():
     event_name_form = copy.deepcopy(SIMPLE_INPUT_FORM)
     event_name_form['name'] = 'name'
-    event_name_form['message'] = 'name'
+    event_name_form['message'] = 'Name'
     event_name_form['validate'] = EventNameValidator
 
     return event_name_form
@@ -49,6 +49,7 @@ def get_event_description_form():
     event_name_form = copy.deepcopy(SIMPLE_INPUT_FORM)
     event_name_form['name'] = 'description'
     event_name_form['message'] = 'Description'
+    event_name_form['validate'] = EventDescriptionValidator
 
     return event_name_form
 
