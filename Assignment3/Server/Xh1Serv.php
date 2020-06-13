@@ -38,9 +38,9 @@ class Xh1Serv
 
         function events_list()
         {
-                $calendarEvent = $this->calendarEventRepository->getById(1);
-                $calendarEventVal = php_xmlrpc_encode($calendarEvent, array("encode_php_objs"));
-                return new xmlrpcresp($calendarEventVal);
+                $calendarEvents = $this->calendarEventRepository->getAll();
+                $calendarEventsVal = php_xmlrpc_encode($calendarEvents, array("encode_php_objs"));
+                return new xmlrpcresp($calendarEventsVal);
         }
 
         function start()

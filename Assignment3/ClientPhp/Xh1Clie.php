@@ -37,7 +37,9 @@ class Xh1Clie
         $message = new xmlrpcmsg($pathServ . "events_list");
         $response = $proxy->send($message);
         $response = php_xmlrpc_decode($response->value(), array("decode_php_objs"));
-        echo "events_list: " . $response->id . " | " . $response->name . " | " . $response->description . " | " . $response->scheduled_time . "<br>";
+        foreach($response as $obj) {
+            echo $obj->id . " | " . $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br>";
+        }
     }
 }
 
@@ -45,12 +47,3 @@ if (isset($_GET["urlServ"]))
     new Xh1Clie($_GET["urlServ"]);
 else
     new Xh1Clie("http://localhost/Xh1Serv.php");
-
-$calendarEventRepository = new CalendarEventRepository();
-
-for ($i = 1; $i <= 10; $i++) {
-    $calendarEvent = $calendarEventRepository->getById($i);
-    if ($calendarEvent != null) {
-        echo "Repo result: " . $calendarEvent->id . " | " . $calendarEvent->name . " | " . $calendarEvent->description . " | " . $calendarEvent->scheduled_time . "<br>";
-    }
-}

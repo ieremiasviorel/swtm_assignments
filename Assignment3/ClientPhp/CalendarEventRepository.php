@@ -11,13 +11,29 @@ class CalendarEventRepository
 
     public function __construct()
     {
-        // Create connection
         $this->connection = mysqli_connect($this->serverName, $this->username, $this->password);
 
-        // Check connection
         if (!$this->connection) {
             die("Connection failed: " . mysqli_connect_error());
         }
+    }
+
+    public function getAll()
+    {
+        $sqlQuery = "SELECT id, name, description, scheduled_time FROM wsmt_xml_rpc_service.calendar_event ORDER BY scheduled_time ASC";
+
+        $sqlResult = $this->connection->query($sqlQuery);
+
+        $result = array();
+
+        if ($sqlResult != null) {
+            while ($obj = $sqlResult->fetch_object("CalendarEvent")) {
+                array_push($result, $obj);
+            }
+            $sqlResult->free_result();
+        }
+
+        return $result;
     }
 
     public function getById($id)
