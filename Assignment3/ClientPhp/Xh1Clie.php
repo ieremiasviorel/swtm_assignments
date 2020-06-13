@@ -21,19 +21,23 @@ class Xh1Clie
 
         $message = new xmlrpcmsg($pathServ . "ping");
         $response = $proxy->send($message);
-        echo "ping: " . php_xmlrpc_decode($response->value()) . "<br/>";
+        $response = php_xmlrpc_decode($response->value());
+        echo "ping: " . $response . "<br/>";
+
         $message = new xmlrpcmsg($pathServ . "upcase", array(new xmlrpcval("negru", "string")));
         $response = $proxy->send($message);
         $response = php_xmlrpc_decode($response->value());
         echo "upcase: negru = " . $response . "<br/>";
+
         $message = new xmlrpcmsg($pathServ . "add", array(new xmlrpcval("66", "int"), new xmlrpcval("75", "int")));
         $response = $proxy->send($message);
         $response = php_xmlrpc_decode($response->value());
         echo "add: 66 + 75 = " . $response . "<br/>";
+
         $message = new xmlrpcmsg($pathServ . "events_list");
         $response = $proxy->send($message);
-        $response = php_xmlrpc_decode($response->value());
-        echo "events_list: " . $response . "<br/>";
+        $response = php_xmlrpc_decode($response->value(), array("decode_php_objs"));
+        echo "events_list: " . $response->id . " | " . $response->name . " | " . $response->description . " | " . $response->scheduled_time . "<br>";
     }
 }
 
@@ -42,7 +46,6 @@ if (isset($_GET["urlServ"]))
 else
     new Xh1Clie("http://localhost/Xh1Serv.php");
 
-echo "<br>";
 $calendarEventRepository = new CalendarEventRepository();
 
 for ($i = 1; $i <= 10; $i++) {
