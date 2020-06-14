@@ -1,6 +1,8 @@
 import sys
 from pprint import pprint
+
 from PyInquirer import prompt
+
 from cli.menu import get_start_question, get_event_selection_question, \
     get_event_operation_selection_question, extract_event_name, get_event_edit_form, get_event_name_form, \
     get_event_description_form, get_event_creation_form
