@@ -18,6 +18,11 @@ class CalendarEventService
         return $this->calendarEventRepository->persist($calendarEvent);
     }
 
+    public function delete($calendarEventName) 
+    {
+        return $this->calendarEventRepository->delete($calendarEventName);
+    }
+
     public function getAll()
     {
         return array_map("CalendarEventDto::fromCalendarEvent", $this->calendarEventRepository->getAll());

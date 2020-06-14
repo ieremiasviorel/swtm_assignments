@@ -33,6 +33,17 @@ class CalendarEventRepository
         }
     }
 
+    public function delete($calendarEventName)
+    {
+        $sql = "DELETE FROM " . $this->tableName . " WHERE name = '" . $calendarEventName . "';";
+
+        if ($this->connection->query($sql) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getAll()
     {
         $sqlQuery = "SELECT id, name, description, scheduled_time FROM " . $this->tableName . " ORDER BY scheduled_time ASC;";

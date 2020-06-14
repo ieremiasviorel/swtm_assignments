@@ -61,6 +61,15 @@ class Xh1Serv
                 return new xmlrpcresp(new xmlrpcval($operationStatus, "boolean"));
         }
 
+        function event_delete($msg)
+        {
+                $calendarEventName = php_xmlrpc_decode($msg->params[0]);
+
+                $operationStatus = $this->calendarEventService->delete($calendarEventName);
+
+                return new xmlrpcresp(new xmlrpcval($operationStatus, "boolean"));
+        }
+
         function start()
         {
                 $serv = new xmlrpc_server(
@@ -89,6 +98,11 @@ class Xh1Serv
                                 array(
                                         "function" => array($this, "event_add"),
                                         "signature" => array(array("boolean", "string", "string", "string"))
+                                ),
+                                "event_delete" =>
+                                array(
+                                        "function" => array($this, "event_delete"),
+                                        "signature" => array(array("boolean", "string"))
                                 ),
                         ),
                         false
