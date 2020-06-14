@@ -7,6 +7,7 @@ class CalendarEventRepository
     public $serverName = "localhost";
     public $username = "root";
     public $password = "";
+    public $tableName = "wsmt_xml_rpc_service.calendar_event";
     public $connection = null;
 
     public function __construct()
@@ -18,9 +19,23 @@ class CalendarEventRepository
         }
     }
 
+    public function persist($calendarEvent)
+    {
+        $sql = "INSERT INTO " . $this->tableName . " (name, description, scheduled_time) VALUES (
+            '" . $calendarEvent->name . "',
+            '" . $calendarEvent->description . "',
+            '" . $calendarEvent->scheduled_time . "');";
+
+        if ($this->connection->query($sql) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getAll()
     {
-        $sqlQuery = "SELECT id, name, description, scheduled_time FROM wsmt_xml_rpc_service.calendar_event ORDER BY scheduled_time ASC";
+        $sqlQuery = "SELECT id, name, description, scheduled_time FROM " . $this->tableName . " ORDER BY scheduled_time ASC;";
 
         $sqlResult = $this->connection->query($sqlQuery);
 
@@ -34,14 +49,5 @@ class CalendarEventRepository
         }
 
         return $result;
-    }
-
-    public function getById($id)
-    {
-        $sql = "SELECT id, name, description, scheduled_time FROM wsmt_xml_rpc_service.calendar_event WHERE id = '" . $id . "'";
-
-        $result = $this->connection->query($sql);
-
-        return $result->fetch_object("CalendarEvent");
     }
 }

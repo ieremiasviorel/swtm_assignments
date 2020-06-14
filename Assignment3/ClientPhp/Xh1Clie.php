@@ -3,6 +3,7 @@ require_once("xmlrpc/xmlrpc.inc");
 require_once("Uri.php");
 require_once("CalendarEvent.php");
 require_once("CalendarEventRepository.php");
+require_once("CalendarEventService.php");
 
 class Xh1Clie
 {
@@ -34,14 +35,36 @@ class Xh1Clie
         $response = php_xmlrpc_decode($response->value());
         echo "add: 66 + 75 = " . $response . "<br/>";
 
+        echo "<br/>";
+
+        echo "EVENTS LIST <br/>";
         $message = new xmlrpcmsg($pathServ . "events_list");
         $response = $proxy->send($message);
         $response = php_xmlrpc_decode($response->value(), array("decode_php_objs"));
-        foreach($response as $obj) {
-            echo $obj->id . " | " . $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br>";
+        foreach ($response as $obj) {
+            echo $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br/>";
         }
+
+        echo "EVENT ADD <br/>";
+        $message = new xmlrpcmsg($pathServ . "event_add", array(
+            new xmlrpcval("Name", "string"),
+            new xmlrpcval("Description", "string"),
+            new xmlrpcval("2020-01-01 12:00:00", "string")
+        ));
+        $response = $proxy->send($message);
+        $response = php_xmlrpc_decode($response->value());
+        echo $response;
     }
 }
+
+echo "Local debug <br/>";
+$calendarEventService = new CalendarEventService();
+$events = $calendarEventService->getAll();
+foreach ($events as $obj) {
+    echo $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br/>";
+}
+
+echo "<br/><br/>";
 
 if (isset($_GET["urlServ"]))
     new Xh1Clie($_GET["urlServ"]);

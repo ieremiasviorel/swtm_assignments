@@ -3,14 +3,15 @@ require_once("xmlrpc/xmlrpc.inc");
 require_once("xmlrpc/xmlrpcs.inc");
 require_once("CalendarEvent.php");
 require_once("CalendarEventRepository.php");
+require_once("CalendarEventService.php");
 
 class Xh1Serv
 {
-        public $calendarEventRepository;
+        public $calendarEventService;
 
         public function __construct()
         {
-                $this->calendarEventRepository = new CalendarEventRepository();
+                $this->calendarEventService = new CalendarEventService();
         }
 
         function ping()
@@ -38,9 +39,26 @@ class Xh1Serv
 
         function events_list()
         {
-                $calendarEvents = $this->calendarEventRepository->getAll();
+                $calendarEvents = $this->calendarEventService->getAll();
                 $calendarEventsVal = php_xmlrpc_encode($calendarEvents, array("encode_php_objs"));
                 return new xmlrpcresp($calendarEventsVal);
+        }
+
+        function event_add($msg)
+        {
+                $calendarEventName = php_xmlrpc_decode($msg->params[0]);
+                $calendarEventDescription = php_xmlrpc_decode($msg->params[1]);
+                $calendarEventScheduledTime = php_xmlrpc_decode($msg->params[2]);
+
+                $calendarEvent = CalendarEvent::fromValues(
+                        $calendarEventName,
+                        $calendarEventDescription,
+                        $calendarEventScheduledTime
+                );
+
+                $operationStatus = $this->calendarEventService->persist($calendarEvent);
+
+                return new xmlrpcresp(new xmlrpcval($operationStatus, "boolean"));
         }
 
         function start()
@@ -66,6 +84,11 @@ class Xh1Serv
                                 array(
                                         "function" => array($this, "events_list"),
                                         "signature" => array(array("string"))
+                                ),
+                                "event_add" =>
+                                array(
+                                        "function" => array($this, "event_add"),
+                                        "signature" => array(array("boolean", "string", "string", "string"))
                                 ),
                         ),
                         false
