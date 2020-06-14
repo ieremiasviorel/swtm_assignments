@@ -44,6 +44,22 @@ class Xh1Serv
                 return new xmlrpcresp($calendarEventsVal);
         }
 
+        function events_list_by_name($msg)
+        {
+                $calendarEventNamePartial =  php_xmlrpc_decode($msg->params[0]);
+                $calendarEvents = $this->calendarEventService->getByNamePartial($calendarEventNamePartial);
+                $calendarEventsVal = php_xmlrpc_encode($calendarEvents, array("encode_php_objs"));
+                return new xmlrpcresp($calendarEventsVal);
+        }
+
+        function events_list_by_description($msg)
+        {
+                $calendarEventDescriptionPartial =  php_xmlrpc_decode($msg->params[0]);
+                $calendarEvents = $this->calendarEventService->getByDescriptionPartial($calendarEventDescriptionPartial);
+                $calendarEventsVal = php_xmlrpc_encode($calendarEvents, array("encode_php_objs"));
+                return new xmlrpcresp($calendarEventsVal);
+        }
+
         function event_add($msg)
         {
                 $calendarEventName = php_xmlrpc_decode($msg->params[0]);
@@ -57,6 +73,18 @@ class Xh1Serv
                 );
 
                 $operationStatus = $this->calendarEventService->persist($calendarEvent);
+
+                return new xmlrpcresp(new xmlrpcval($operationStatus, "boolean"));
+        }
+
+        function event_edit($msg)
+        {
+                $originalName = php_xmlrpc_decode($msg->params[0]);
+                $updatedName = php_xmlrpc_decode($msg->params[1]);
+                $updatedDescription = php_xmlrpc_decode($msg->params[2]);
+                $updatedScheduledTime = php_xmlrpc_decode($msg->params[3]);
+
+                $operationStatus = $this->calendarEventService->edit($originalName, $updatedName, $updatedDescription, $updatedScheduledTime);
 
                 return new xmlrpcresp(new xmlrpcval($operationStatus, "boolean"));
         }
@@ -94,10 +122,25 @@ class Xh1Serv
                                         "function" => array($this, "events_list"),
                                         "signature" => array(array("string"))
                                 ),
+                                "events_list_by_name" =>
+                                array(
+                                        "function" => array($this, "events_list_by_name"),
+                                        "signature" => array(array("string", "string"))
+                                ),
+                                "events_list_by_description" =>
+                                array(
+                                        "function" => array($this, "events_list_by_description"),
+                                        "signature" => array(array("string", "string"))
+                                ),
                                 "event_add" =>
                                 array(
                                         "function" => array($this, "event_add"),
                                         "signature" => array(array("boolean", "string", "string", "string"))
+                                ),
+                                "event_edit" =>
+                                array(
+                                        "function" => array($this, "event_edit"),
+                                        "signature" => array(array("boolean", "string", "string", "string", "string"))
                                 ),
                                 "event_delete" =>
                                 array(

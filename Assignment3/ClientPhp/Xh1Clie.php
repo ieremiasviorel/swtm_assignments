@@ -51,15 +51,36 @@ class Xh1Clie
             new xmlrpcval("Description", "string"),
             new xmlrpcval("2020-01-01 12:00:00", "string")
         ));
-        $response = $proxy->send($message);
-        $response = php_xmlrpc_decode($response->value());
-        echo $response;
+        // $response = $proxy->send($message);
+        // $response = php_xmlrpc_decode($response->value());
+        // echo $response;
     }
 }
 
 echo "Local debug <br/>";
 $calendarEventService = new CalendarEventService();
 $events = $calendarEventService->getAll();
+foreach ($events as $obj) {
+    echo $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br/>";
+}
+
+echo "<br/>";
+
+$events = $calendarEventService->getByNamePartial("1");
+foreach ($events as $obj) {
+    echo $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br/>";
+}
+
+echo "<br/>";
+
+$events = $calendarEventService->getByDescriptionPartial("desc");
+foreach ($events as $obj) {
+    echo $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br/>";
+}
+
+echo "<br/>";
+
+$events = $calendarEventService->edit("a", "ab", "aabb", "2020-10-10 16:00:00");
 foreach ($events as $obj) {
     echo $obj->name . " | " . $obj->description . " | " . $obj->scheduled_time . "<br/>";
 }

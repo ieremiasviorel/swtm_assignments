@@ -31,7 +31,7 @@ def get_event_edit_form(event):
     event_form = copy.deepcopy(EVENT_FORM)
     event_form[0]['default'] = event.name
     event_form[1]['default'] = event.description
-    event_form[2]['default'] = event.scheduled_time.strftime("%Y-%m-%d %H:%M:%S")
+    event_form[2]['default'] = event.scheduled_time
 
     return event_form
 

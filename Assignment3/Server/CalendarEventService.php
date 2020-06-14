@@ -18,6 +18,11 @@ class CalendarEventService
         return $this->calendarEventRepository->persist($calendarEvent);
     }
 
+    public function edit($originalName, $updatedName, $updatedDescription, $updatedScheduledTime)
+    {
+        return $this->calendarEventRepository->edit($originalName, $updatedName, $updatedDescription, $updatedScheduledTime);
+    }
+
     public function delete($calendarEventName) 
     {
         return $this->calendarEventRepository->delete($calendarEventName);
@@ -26,5 +31,15 @@ class CalendarEventService
     public function getAll()
     {
         return array_map("CalendarEventDto::fromCalendarEvent", $this->calendarEventRepository->getAll());
+    }
+
+    public function getByNamePartial($calendarEventNamePartial) 
+    {
+        return $this->calendarEventRepository->getByNamePartial($calendarEventNamePartial);
+    }
+
+    public function getByDescriptionPartial($calendarEventDescriptionPartial) 
+    {
+        return $this->calendarEventRepository->getByDescriptionPartial($calendarEventDescriptionPartial);
     }
 }

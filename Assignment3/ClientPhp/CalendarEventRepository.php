@@ -33,6 +33,21 @@ class CalendarEventRepository
         }
     }
 
+    public function edit($originalName, $updatedName, $updatedDescription, $updatedScheduledTime)
+    {
+        $sql = "UPDATE " . $this->tableName . " SET " .
+            "name = '" . $updatedName . "', " .
+            "description = '" . $updatedDescription . "'," .
+            "scheduled_time = '" . $updatedScheduledTime . "' " .
+            "WHERE name = '" . $originalName . "';";
+
+        if ($this->connection->query($sql) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function delete($calendarEventName)
     {
         $sql = "DELETE FROM " . $this->tableName . " WHERE name = '" . $calendarEventName . "';";
@@ -47,6 +62,42 @@ class CalendarEventRepository
     public function getAll()
     {
         $sqlQuery = "SELECT id, name, description, scheduled_time FROM " . $this->tableName . " ORDER BY scheduled_time ASC;";
+
+        $sqlResult = $this->connection->query($sqlQuery);
+
+        $result = array();
+
+        if ($sqlResult != null) {
+            while ($obj = $sqlResult->fetch_object("CalendarEvent")) {
+                array_push($result, $obj);
+            }
+            $sqlResult->free_result();
+        }
+
+        return $result;
+    }
+
+    public function getByNamePartial($calendarEventNamePartial)
+    {
+        $sqlQuery = "SELECT id, name, description, scheduled_time FROM " . $this->tableName . " WHERE name LIKE '%" . $calendarEventNamePartial . "%' ORDER BY scheduled_time ASC;";
+
+        $sqlResult = $this->connection->query($sqlQuery);
+
+        $result = array();
+
+        if ($sqlResult != null) {
+            while ($obj = $sqlResult->fetch_object("CalendarEvent")) {
+                array_push($result, $obj);
+            }
+            $sqlResult->free_result();
+        }
+
+        return $result;
+    }
+
+    public function getByDescriptionPartial($calendarEventDescriptionPartial)
+    {
+        $sqlQuery = "SELECT id, name, description, scheduled_time FROM " . $this->tableName . " WHERE description LIKE '%" . $calendarEventDescriptionPartial . "%' ORDER BY scheduled_time ASC;";
 
         $sqlResult = $this->connection->query($sqlQuery);
 
